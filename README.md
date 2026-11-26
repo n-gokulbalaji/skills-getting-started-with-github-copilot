@@ -1,16 +1,70 @@
-# Getting Started with GitHub Copilot
+# Mergington High School Activities API
 
-<img src="https://octodex.github.com/images/Professortocat_v2.png" align="right" height="200px" />
+A super simple FastAPI application that allows students to view and sign up for extracurricular activities.
 
-Hey n-gokulbalaji!
+## Features
 
-Mona here. I'm done preparing your exercise. Hope you enjoy! 💚
+- View all available extracurricular activities
+- Sign up for activities and remove participants
 
-Remember, it's self-paced so feel free to take a break! ☕️
+## Getting Started
 
-[![](https://img.shields.io/badge/Go%20to%20Exercise-%E2%86%92-1f883d?style=for-the-badge&logo=github&labelColor=197935)](https://github.com/n-gokulbalaji/skills-getting-started-with-github-copilot/issues/1)
+From the repository root:
 
----
+1. Install the dependencies:
 
-&copy; 2025 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
+   ```
+   python -m pip install -r requirements.txt
+   ```
 
+2. Start the application:
+
+   ```
+   python -m uvicorn src.app:app --reload
+   ```
+
+3. Open the website at http://127.0.0.1:8000. You can also visit:
+   - API documentation: http://127.0.0.1:8000/docs
+   - Alternative documentation: http://127.0.0.1:8000/redoc
+
+## Verify the Website
+
+1. Confirm the activities load on the home page.
+2. Enter a student email, choose an activity, and select **Sign Up**.
+3. Confirm a success message appears and the participant list updates without a refresh.
+4. Use the remove button beside a participant and confirm the list updates.
+
+The signup data is held in memory and resets when the server restarts.
+
+## Run Backend Tests
+
+From the repository root, run:
+
+```
+python -m pytest
+```
+
+## API Endpoints
+
+| Method | Endpoint                                                          | Description                                                         |
+| ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
+| GET    | `/activities`                                                     | Get all activities with their details and current participant count |
+| POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Sign up for an activity                                             |
+| DELETE | `/activities/{activity_name}/signup?email=student@mergington.edu` | Unregister from an activity                                         |
+
+## Data Model
+
+The application uses a simple data model with meaningful identifiers:
+
+1. **Activities** - Uses activity name as identifier:
+
+   - Description
+   - Schedule
+   - Maximum number of participants allowed
+   - List of student emails who are signed up
+
+2. **Students** - Uses email as identifier:
+   - Name
+   - Grade level
+
+All data is stored in memory, which means data will be reset when the server restarts.
